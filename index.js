@@ -115,12 +115,22 @@ async function checkAllReposCommits() {
           const repoImage =
             "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png";
 
+          // Log commit receipt to console
+          console.log(
+            `[GitHub] New commit received: ${repo.name} | ${author} | ${
+              commit.sha
+            } | ${message.split("\n")[0]}`
+          );
+
           const embed = new EmbedBuilder()
             .setColor(0x24292f)
             .setTitle(`📦 New commit in ${repo.name}`)
             .setURL(commitUrl)
             .setAuthor({ name: author, iconURL: avatar })
-            .setDescription(`\`\`\`\n${message}\n\`\`\``)
+            .setDescription(
+              `**Message:**\n\`\`\`${message}\`\`\`\n` +
+                `**[View Commit on GitHub](${commitUrl})**`
+            )
             .addFields(
               {
                 name: "Repository",
@@ -128,8 +138,8 @@ async function checkAllReposCommits() {
                 inline: true,
               },
               {
-                name: "Commit",
-                value: `[View on GitHub](${commitUrl})`,
+                name: "Commit Hash",
+                value: `\`${commit.sha.substring(0, 7)}\``,
                 inline: true,
               },
               {
@@ -142,7 +152,7 @@ async function checkAllReposCommits() {
             .setImage(repoImage)
             .setTimestamp(new Date(date))
             .setFooter({
-              text: `Commit hash: ${commit.sha} • Powered by GitHub`,
+              text: `Powered by GitHub`,
               iconURL: repoImage,
             });
 
