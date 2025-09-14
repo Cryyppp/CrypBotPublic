@@ -59,8 +59,6 @@ client.on("clientReady", async () => {
       status: "online",
     });
   }, 10000);
-
-  // Avvia il polling ogni 60 secondi
   setInterval(checkAllReposCommits, 60 * 1000);
 });
 
@@ -68,7 +66,7 @@ client.login(token);
 
 // CONFIGURA QUI
 const { GITHUB_USERNAME, GITHUB_TOKEN, CHANNEL_ID } = require("./config.json");
-let lastCommits = {}; // { repoName: lastSha }
+let lastCommits = {};
 
 async function checkAllReposCommits() {
   try {
