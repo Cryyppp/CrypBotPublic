@@ -17,7 +17,8 @@ module.exports = {
         .setDescription("The channel to send the panel in")
         .setRequired(true)
     )
-    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator), // optional: restrict command
+    .setDefaultMemberPermissions(PermissionFlagsBits.Administrator),
+  requiredRoles: [staffRole],
   async execute(interaction) {
     const channel = interaction.options.getChannel("channel");
     const embed = new EmbedBuilder()
