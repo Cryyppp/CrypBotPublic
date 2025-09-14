@@ -64,7 +64,7 @@ client.on("clientReady", async () => {
 
 client.login(token);
 
-// CONFIGURA QUI
+// CONFIGURA QUIi
 const { GITHUB_USERNAME, GITHUB_TOKEN, CHANNEL_ID } = require("./config.json");
 let lastCommits = {};
 
