@@ -94,7 +94,6 @@ async function checkAllReposCommits() {
         continue;
       }
 
-      // Trova nuovi commit
       const newCommits = [];
       for (const commit of commits) {
         if (commit.sha === lastSha) break;
