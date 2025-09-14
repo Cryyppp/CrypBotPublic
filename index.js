@@ -112,27 +112,40 @@ async function checkAllReposCommits() {
           const commitUrl = commit.html_url;
           const message = commit.commit.message;
           const date = commit.commit.author?.date || new Date().toISOString();
+          const repoUrl = repo.html_url;
+          const repoImage =
+            "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png";
 
           const embed = new EmbedBuilder()
             .setColor(0x24292f)
-            .setTitle(`📦 New commit on${repo.name}`)
+            .setTitle(`📦 New commit in ${repo.name}`)
             .setURL(commitUrl)
             .setAuthor({ name: author, iconURL: avatar })
             .setDescription(`\`\`\`\n${message}\n\`\`\``)
             .addFields(
               {
                 name: "Repository",
-                value: `[${repo.name}](${repo.html_url})`,
+                value: `[${repo.name}](${repoUrl})`,
                 inline: true,
               },
               {
                 name: "Commit",
                 value: `[View on GitHub](${commitUrl})`,
                 inline: true,
+              },
+              {
+                name: "Committed at",
+                value: `<t:${Math.floor(new Date(date).getTime() / 1000)}:F>`,
+                inline: false,
               }
             )
+            .setThumbnail(repoImage)
+            .setImage(repoImage)
             .setTimestamp(new Date(date))
-            .setFooter({ text: `Commit hash: ${commit.sha}` });
+            .setFooter({
+              text: `Commit hash: ${commit.sha} • Powered by GitHub`,
+              iconURL: repoImage,
+            });
 
           await channel.send({ embeds: [embed] });
         }
